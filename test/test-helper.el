@@ -10,7 +10,7 @@
 (defvar root-sandbox-path
   (f-expand "sandbox" root-test-path))
 
-(require 'root (f-expand "root.el" root-code-path))
+(require 'yogurty (f-expand "yogurty.el" root-code-path))
 
 (defmacro with-sandbox (&rest body)
   "Evaluate BODY in an empty temporary directory."
