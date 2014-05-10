@@ -51,9 +51,9 @@
 (defvar yogurty-rt-server "localhost" "Hostname of the RT server -- where to point rt.")
 (defvar yogurty-rt-subjectline "rt.example.com" "The RT subject line -- ie, rt.example.com.")
 
+(defun yogur
 
-
-(defun yogurty--find-rt-ticket-subject-from-rt-email ()
+(defun yogurty-find-rt-ticket-subject-from-rt-email ()
   "Find a ticket subject from rt-email.
 
 Used in a few different places; time to break it out."
@@ -64,19 +64,19 @@ Used in a few different places; time to break it out."
     (if (search-forward-regexp (format "\\[%s #\\([0-9]+\\)\\]\\(.*\\)$" yogurty-rt-subjectlin) (line-end-position) t)
 	(match-string 2))))
 
-(defun yogurty--insert-rt-ticket-into-org-from-rt-email (&optional arg)
+(defun yogurty-insert-rt-ticket-into-org-from-rt-email (&optional arg)
   "Insert an RT ticket into Org and clock in while editing a reply to that email.
 Faster than waiting for rt-browser to update.
 
 If argument provided, do NOT clock in.
 "
   (interactive "P")
-  (let ((id (yogurty--find-rt-ticket-number-from-rt-email))
-	(subject (yogurty--find-rt-ticket-subject-from-rt-email)))
-	(yogurty--insert-rt-ticket-into-org-generic id subject arg)
+  (let ((id (yogurty-find-rt-ticket-number-from-rt-email))
+	(subject (yogurty-find-rt-ticket-subject-from-rt-email)))
+	(yogurty-insert-rt-ticket-into-org-generic id subject arg)
 	    (org-clock-in)))
 
-(defun yogurty--insert-rt-ticket-into-org-generic (id subject &optional arg)
+(defun yogurty-insert-rt-ticket-into-org-generic (id subject &optional arg)
   "Generic way of inserting an org entry for an RT ticket (if necessary).
 
 If arg provided, do NOT clock in.
@@ -96,7 +96,7 @@ If arg provided, do NOT clock in.
    (unless arg
      (org-clock-in))))
 
-(defun yogurty--insert-rt-ticket-into-org (&optional point arg)
+(defun yogurty-insert-rt-ticket-into-org (&optional point arg)
   "A Small but Useful(tm) function to insert an RT ticket into Org.
 
 If POINT is nil then called on (point).  If called with arg, check in as well."
@@ -122,7 +122,7 @@ If POINT is nil then called on (point).  If called with arg, check in as well."
       (if arg
 	  (org-clock-in)))))
 
-(defun yogurty--clocked-into-rt-ticket ()
+(defun yogurty-clocked-into-rt-ticket ()
   "A Small but Useful(tm) function to see if I'm clocked into an RT ticket.
 
 Depends on regular expressions, which of course puts me in a state of sin."
@@ -132,7 +132,7 @@ Depends on regular expressions, which of course puts me in a state of sin."
     (when (string-match "\\(RT #[0-9]+\\)" org-clock-current-task)
      (eval (format "%s" (match-string 1 org-clock-current-task))))))
 
-(defun yogurty--clocked-into-rt-ticket-number-only ()
+(defun yogurty-clocked-into-rt-ticket-number-only ()
   "A Small but Useful(tm) function to see if I'm clocked into an RT ticket.
 
 Depends on regular expressions, which of course puts me in a state of sin."
@@ -143,29 +143,29 @@ Depends on regular expressions, which of course puts me in a state of sin."
 	(format "%s" (match-string 1 org-clock-current-task))
       ())))
 
-(defun yogurty--open-org-file-for-rt-ticket ()
+(defun yogurty-open-org-file-for-rt-ticket ()
   "A Small but Useful(tm) function to open the notes file for a ticket."
   (interactive)
-  (find-file (format "/home/hugh/git/rt_%s/notes.org" (yogurty--clocked-into-rt-ticket-number-only))))
+  (find-file (format "/home/hugh/git/rt_%s/notes.org" (yogurty-clocked-into-rt-ticket-number-only))))
 
-(defun yogurty--insert-rt-ticket-commit-comment ()
+(defun yogurty-insert-rt-ticket-commit-comment ()
   "A Small but Useful(tm) function to insert a comment referencing an RT ticket.
 
 Uses the currently-clocked in task as default."
   (interactive)
-  (insert-string (format "see %s for details." (yogurty--clocked-into-rt-ticket))))
+  (insert-string (format "see %s for details." (yogurty-clocked-into-rt-ticket))))
 
-(defun yogurty--schedule-rt-ticket-for-today-from-rt-email (&optional arg)
+(defun yogurty-schedule-rt-ticket-for-today-from-rt-email (&optional arg)
   "Schedule an RT ticket for today while editing that email.  Optional arg sets prio to A.
 
 Can be called from Mutt as well."
   (interactive "P")
-  (yogurty--insert-rt-ticket-into-org-from-rt-email)
-  (let ((id (yogurty--find-rt-ticket-number-from-rt-email))
-	(subject (yogurty--find-rt-ticket-subject-from-rt-email)))
-	(yogurty--schedule-rt-ticket-for-today-generic id subject arg)))
+  (yogurty-insert-rt-ticket-into-org-from-rt-email)
+  (let ((id (yogurty-find-rt-ticket-number-from-rt-email))
+	(subject (yogurty-find-rt-ticket-subject-from-rt-email)))
+	(yogurty-schedule-rt-ticket-for-today-generic id subject arg)))
 
-(defun yogurty--schedule-rt-ticket-for-today-generic (id subject &optional arg)
+(defun yogurty-schedule-rt-ticket-for-today-generic (id subject &optional arg)
   "Generic way to schedule an RT ticket for today.  Optional arg sets prio to A."
   (interactive "P")
  (save-excursion
@@ -177,27 +177,27 @@ Can be called from Mutt as well."
    (if arg
        (org-priority-up))))
 
-(defun yogurty--resolve-rt-ticket-after-org-rt-done ()
+(defun yogurty-resolve-rt-ticket-after-org-rt-done ()
   "Resolve an RT ticket after the org entry is marked done.
 
 Meant to be called from org-after-todo-state-change-hook:
 
-    (add-hook 'org-after-todo-state-change-hook 'yogurty--resolve-rt-ticket-after-org-rt-done)
+    (add-hook 'org-after-todo-state-change-hook 'yogurty-resolve-rt-ticket-after-org-rt-done)
 
-Originally I had used yogurty--clocked-into-rt-ticket-number-only
+Originally I had used yogurty-clocked-into-rt-ticket-number-only
 to try and figure out the ticket number, but I'd forgotten that
 a) by the time this hook runs, we're no longer clocked into
 anything (if we were before), and b) I might want to run this
 while not clocked into anything. So I duplicate the extraction of
-ticket number that's in yogurty--clocked, which FIXME."
+ticket number that's in yogurty-clocked, which FIXME."
   (interactive)
   (when (string-equal org-state "DONE")
-    ; yogurty--clocked-into-rt-ticket-number-only -- not quite, but close.
+    ; yogurty-clocked-into-rt-ticket-number-only -- not quite, but close.
     (when (looking-at ".*RT #\\([0-9]+\\)")
       (message "I'm gonna try to close this ticket!")
-	(yogurty--rt-resolve-without-mercy-noninteractive (format "%s" (match-string 1 org-clock-current-task))))))
+	(yogurty-rt-resolve-without-mercy-noninteractive (format "%s" (match-string 1 org-clock-current-task))))))
 
-(defun yogurty--email-rt (&optional arg ticket)
+(defun yogurty-email-rt (&optional arg ticket)
   "A Small but Useful(tm) function to email RT about a particular ticket. Universal argument to make it Bcc."
   (interactive "P\nnTicket: ")
   (save-excursion
@@ -209,7 +209,7 @@ ticket number that's in yogurty--clocked, which FIXME."
     (search-forward "Subject:")
     (insert-string (format " [rt.chibi.ubc.ca #%d] " ticket))))
 
-(defun yogurty--new-rt-email ()
+(defun yogurty-new-rt-email ()
   "A Small but Useful(tm) function to send an email to RT for a new ticket."
   (interactive)
   (save-excursion
@@ -217,7 +217,7 @@ ticket number that's in yogurty--clocked, which FIXME."
     (search-forward "To:")
     (insert-string " help@chibi.ubc.ca")))
 
-(defun yogurty--email-rt-dwim (&optional arg)
+(defun yogurty-email-rt-dwim (&optional arg)
   "A Small but Useful(tm) function to email RT about a particular ticket. Universal argument to send to rt instead of rt-comment.
 
   Will do its best to figure out the ticket number on its own, and prompt if needed; and will send a Bcc: if it looks like there's already a To: address."
@@ -238,9 +238,9 @@ ticket number that's in yogurty--clocked, which FIXME."
 	()
       (insert-string
        (format " [rt.chibi.ubc.ca #%s] "
-	       (read-string "Ticket: " nil nil (format "%s" (yogurty--clocked-into-rt-ticket-number-only))))))))
+	       (read-string "Ticket: " nil nil (format "%s" (yogurty-clocked-into-rt-ticket-number-only))))))))
 
-(defun yogurty--insert-rt-ticket-into-org (&optional point arg)
+(defun yogurty-insert-rt-ticket-into-org (&optional point arg)
   "A Small but Useful(tm) function to insert an RT ticket into Org.
 
 If POINT is nil then called on (point).  If called with arg, check in as well."
@@ -266,14 +266,14 @@ If POINT is nil then called on (point).  If called with arg, check in as well."
       (if arg
 	  (org-clock-in)))))
 
-(defun yogurty--get-rt-ticket-subject ()
+(defun yogurty-get-rt-ticket-subject ()
   "Get RT ticket subject."
   (interactive)
   (setq point (point))
   (let ((subject (cdr (assoc "Subject" (get-text-property point 'rt-ticket)))))
     (message "RT #666 -- %s" subject)))
 
-(defun yogurty--rt-resolve-without-mercy-interactive (ticket)
+(defun yogurty-rt-resolve-without-mercy-interactive (ticket)
   "Resolve an RT ticket without hesitation.
 
 Do it, monkey boy!"
@@ -282,20 +282,20 @@ Do it, monkey boy!"
 
 ;; FIXME: Too stupid right now to figure out how to do the right
 ;; thing: only prompting if there's no ticket supplied.
-(defun yogurty--rt-resolve-without-mercy-noninteractive (ticket)
+(defun yogurty-rt-resolve-without-mercy-noninteractive (ticket)
   "Resolve an RT ticket without hesitation.
 
 Do it, monkey boy!"
   (start-process "nomercy" "rt-resolve-without-mercy" "/home/hugh/bin/rt-resolve-without-mercy.sh" ticket))
 
-(defun yogurty--rt-get-already-existing-ticket-subject (ticket)
+(defun yogurty-rt-get-already-existing-ticket-subject (ticket)
   "Get the subject from an already-existing ticket."
   (interactive "sTicket: ")
   (insert (shell-command-to-string (format "/home/hugh/bin/rt-get-ticket-subjectline.sh %s" ticket))))
 
 ;; FIXME: This should be in org.
-;; FIXME: This is a duplicate of yogurty--rt-get-already-existing-ticket-subject.
-(defun yogurty--org-autofill-rt-entry (ticket)
+;; FIXME: This is a duplicate of yogurty-rt-get-already-existing-ticket-subject.
+(defun yogurty-org-autofill-rt-entry (ticket)
   "Autofill Org RT entry from an already-existing ticket."
   (interactive "sTicket: ")
   (insert (format "RT #%s -- %s" ticket (shell-command-to-string (format "/home/hugh/bin/rt-get-ticket-subjectline.sh %s" ticket)))))
