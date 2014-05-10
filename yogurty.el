@@ -51,7 +51,10 @@
 (defvar yogurty-rt-server "localhost" "Hostname of the RT server -- where to point rt.")
 (defvar yogurty-rt-subjectline "rt.example.com" "The RT subject line -- ie, rt.example.com.")
 
-(defun yogur
+(defun yogurty-find-rt-ticket-subject-from-string (string)
+  "Find a ticket subject from a string."
+  (if (search-forward-regexp (format "\\[%s #\\([0-9]+\\)\\]\\(.*\\)$" string) (line-end-position) t)
+      (match-string 2)))
 
 (defun yogurty-find-rt-ticket-subject-from-rt-email ()
   "Find a ticket subject from rt-email.
