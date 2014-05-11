@@ -53,7 +53,8 @@
 
 (defun yogurty-find-rt-ticket-subject-from-string (string)
   "Find a ticket subject from a string."
-  (if (string-match (format "\\[%s #\\([0-9]+\\)\\]\\(.*\\)$" yogurty-rt-subjectline) string)
+  (if (string-match (format "\\[%s #\\([0-9]+\\)\\] \\(.*\\)$" yogurty-rt-subjectline) string)
+      (match-string 2 string)))
       (match-string 1 string)))
 
 (defun yogurty-find-rt-ticket-subject-from-rt-email ()
