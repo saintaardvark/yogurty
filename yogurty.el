@@ -64,7 +64,7 @@ Used in a few different places; time to break it out."
   (save-excursion
     (goto-char (point-min))
     (search-forward "Subject: ")
-    (if (search-forward-regexp (format "\\[%s #\\([0-9]+\\)\\]\\(.*\\)$" yogurty-rt-subjectlin) (line-end-position) t)
+    (if (search-forward-regexp (format "\\[%s #\\([0-9]+\\)\\]\\(.*\\)$" yogurty-rt-subjectline) (line-end-position) t)
 	(match-string 2))))
 
 (defun yogurty-insert-rt-ticket-into-org-from-rt-email (&optional arg)
