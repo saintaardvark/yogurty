@@ -73,6 +73,17 @@ Used in a few different places; time to break it out."
 	(yogurty-find-rt-ticket-subject-from-string (thing-at-point 'line))
       (nil))))
 
+(defun yogurty-find-rt-ticket-number-from-rt-email ()
+  "Find a ticket subject from rt-email.
+
+Used in a few different places; time to break it out."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (if (search-forward "Subject: ")
+	(yogurty-find-rt-ticket-number-from-string (thing-at-point 'line))
+      (nil))))
+
 (defun yogurty-insert-rt-ticket-into-org-from-rt-email (&optional arg)
   "Insert an RT ticket into Org and clock in while editing a reply to that email.
 Faster than waiting for rt-browser to update.

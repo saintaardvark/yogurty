@@ -35,3 +35,8 @@
   "Should find ticket subject from email."
   (my-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-subject-from-rt-email) "opt-out for google analytics on website")))))
+
+(ert-deftest yogurty/find-rt-ticket-number-from-email ()
+  "Should find ticket subject from email."
+  (my-fixture
+   (lambda () (should (equal (yogurty-find-rt-ticket-number-from-rt-email) "2341")))))
