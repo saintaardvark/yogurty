@@ -86,6 +86,26 @@ Used in a few different places; time to break it out."
 	(yogurty-find-rt-ticket-number-from-string (thing-at-point 'line))
       (nil))))
 
+;; FIXME: The search should prob be separate function, right?
+(defun yogurty-find-rt-ticket-in-org-file (ticket)
+  "Search for Org headline with RT ticket.
+
+Returns position of headline, or nil if not found."
+  (interactive "s")
+  (save-excursion
+   (set-buffer (find-file-noselect yogurty-org-file))
+   (goto-char (point-min))
+   (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)))
+
+(defun yogurty-find-rt-ticket-org-headline-in-buffer (ticket)
+  "Search for Org headline with RT ticket in buffer.
+
+Returns position of headline, or nil if not found."
+  (interactive "s")
+  (save-excursion
+   (goto-char (point-min))
+   (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" ticket) (point-max) t)))
+
 (defun yogurty-insert-rt-ticket-into-org-from-rt-email (&optional arg)
   "Insert an RT ticket into Org and clock in while editing a reply to that email.
 Faster than waiting for rt-browser to update.
