@@ -50,6 +50,7 @@
 ;; FIXME: Should be defcustom
 (defvar yogurty-rt-server "localhost" "Hostname of the RT server -- where to point rt.")
 (defvar yogurty-rt-subjectline "rt.example.com" "The RT subject line -- ie, rt.example.com.")
+(defvar yogurty-org-file "all.org" "Filename of the org file.")
 
 (defun yogurty-find-rt-ticket-subject-from-string (string)
   "Find a ticket subject from a string."
@@ -91,7 +92,7 @@ If arg provided, do NOT clock in.
 "
  (interactive "P")
  (save-excursion
-   (set-buffer (find-file-noselect "/home/hugh/chibi/all.org"))
+   (set-buffer (find-file-noselect yogurty-org-file))
    (goto-char (point-min))
    (if (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)
        (message "Already in org!")
@@ -117,7 +118,7 @@ If POINT is nil then called on (point).  If called with arg, check in as well."
     (setq subject (cdr (assoc "Subject" ticket)))
     (setq id (rt-liber-browser-ticket-id-at-point))
     (save-excursion
-      (set-buffer (find-file-noselect "/home/hugh/chibi/all.org"))
+      (set-buffer (find-file-noselect yogurty-org-file))
       (goto-char (point-min))
       (if (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)
 	  (message "Already in org!")
@@ -177,7 +178,7 @@ Can be called from Mutt as well."
   "Generic way to schedule an RT ticket for today.  Optional arg sets prio to A."
   (interactive "P")
  (save-excursion
-   (set-buffer (find-file-noselect "/home/hugh/chibi/all.org"))
+   (set-buffer (find-file-noselect yogurty-org-file))
    (goto-char (point-min))
    (if (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)
        (progn
@@ -261,7 +262,7 @@ If POINT is nil then called on (point).  If called with arg, check in as well."
     (setq subject (cdr (assoc "Subject" ticket)))
     (setq id (rt-liber-browser-ticket-id-at-point))
     (save-excursion
-      (set-buffer "all.org")
+      (set-buffer yogurty-org-file)
       (goto-char (point-min))
       (if (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)
 	  (message "Already in org!")
