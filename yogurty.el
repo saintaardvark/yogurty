@@ -68,9 +68,9 @@ Used in a few different places; time to break it out."
   (interactive)
   (save-excursion
     (goto-char (point-min))
-    (search-forward "Subject: ")
-    (if (search-forward-regexp (format "\\[%s #\\([0-9]+\\)\\]\\(.*\\)$" yogurty-rt-subjectline) (line-end-position) t)
-	(match-string 2))))
+    (if (search-forward "Subject: ")
+	(yogurty-find-rt-ticket-subject-from-string (thing-at-point 'line))
+      (nil))))
 
 (defun yogurty-insert-rt-ticket-into-org-from-rt-email (&optional arg)
   "Insert an RT ticket into Org and clock in while editing a reply to that email.
