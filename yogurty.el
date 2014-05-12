@@ -52,6 +52,7 @@
 (defvar yogurty-rt-subjectline "rt.example.com" "The RT subject line -- ie, rt.example.com.")
 (defvar yogurty-org-file "all.org" "Filename of the org file.")
 
+;; FIXME: These two functions should be one that takes an arg.
 (defun yogurty-find-rt-ticket-subject-from-string (string)
   "Find a ticket subject from a string."
   (if (string-match (format "\\[%s #\\([0-9]+\\)\\] \\(.*\\)$" yogurty-rt-subjectline) string)
@@ -62,6 +63,7 @@
   (if (string-match (format "\\[%s #\\([0-9]+\\)\\] \\(.*\\)$" yogurty-rt-subjectline) string)
       (match-string 1 string)))
 
+;; FIXME: These two functions should be one that takes an arg.
 (defun yogurty-find-rt-ticket-subject-from-rt-email ()
   "Find a ticket subject from rt-email.
 
