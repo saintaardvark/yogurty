@@ -21,6 +21,14 @@
 	  (goto-char (point-min))
 	  (funcall body)))))
 
+(defun my-org-fixture (body)
+  (unwind-protect
+      (progn
+	(with-temp-buffer
+	  (insert-string "** RT #2341 -- opt-out for google analytics on website")
+	  (goto-char (point-min))
+	  (funcall body)))))
+
 ; (my-fixture (lambda () (message (yogurty-find-rt-ticket-subject-from-rt-email))))
 
 (ert-deftest yogurty/find-ticket-number-from-string ()
