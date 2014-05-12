@@ -30,3 +30,8 @@
 (ert-deftest yogurty/find-ticket-subject-from-string ()
   "Should find ticket subject from string."
   (should (equal (yogurty-find-rt-ticket-subject-from-string rt-test-string) "opt-out for google analytics on website")))
+
+(ert-deftest yogurty/find-rt-ticket-subject-from-email ()
+  "Should find ticket subject from email."
+  (my-fixture
+   (lambda () (should (equal (yogurty-find-rt-ticket-subject-from-rt-email) "opt-out for google analytics on website")))))
