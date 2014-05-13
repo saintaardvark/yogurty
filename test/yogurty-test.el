@@ -49,7 +49,7 @@
   (my-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-number-from-rt-email) "2341")))))
 
-(ert-deftest yogurty/find-already-existing-rt-ticket-in-org- ()
+(ert-deftest yogurty/find-already-existing-rt-ticket-in-org ()
   "Should find already-existing RT ticket in org buffer."
   (my-org-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-org-headline-in-buffer "2341") 55)))))
