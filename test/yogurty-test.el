@@ -25,7 +25,9 @@
   (unwind-protect
       (progn
 	(with-temp-buffer
-	  (insert-string "** RT #2341 -- opt-out for google analytics on website")
+	  (insert-string "* RT #2341 -- Big cloud my .emacs file\n")
+	  (insert-string "** RT #2342 -- opt-out for google analytics on website\n")
+	  (insert-string "*** RT #2343 -- Memory foam for my smartphone\n")
 	  (goto-char (point-min))
 	  (funcall body)))))
 
@@ -49,7 +51,19 @@
   (my-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-number-from-rt-email) "2341")))))
 
-(ert-deftest yogurty/find-already-existing-rt-ticket-in-buffer ()
+(ert-deftest yogurty/find-already-existing-rt-ticket-in-buffer-level-1-headline ()
   "Should find already-existing RT ticket in org buffer."
   (my-org-fixture
-   (lambda () (should (equal (yogurty-find-rt-ticket-org-headline-in-buffer "2341") 55)))))
+   (lambda () (should (equal (yogurty-find-rt-ticket-org-headline-in-buffer "2341") 1)))))
+
+(ert-deftest yogurty/find-already-existing-rt-ticket-in-buffer-level-2-headline ()
+  "Should find already-existing RT ticket in org buffer."
+  (my-org-fixture
+   (lambda () (should (equal (yogurty-find-rt-ticket-org-headline-in-buffer "2342") 2)))))
+
+(ert-deftest yogurty/find-already-existing-rt-ticket-in-buffer-level-3-headline ()
+  "Should find already-existing RT ticket in org buffer."
+  (my-org-fixture
+   (lambda () (should (equal (yogurty-find-rt-ticket-org-headline-in-buffer "2343") 3)))))
+
+

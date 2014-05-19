@@ -104,7 +104,7 @@ Returns position of headline, or nil if not found."
   (interactive "s")
   (save-excursion
    (goto-char (point-min))
-   (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" ticket) (point-max) t)))
+   (line-number-at-pos (search-forward-regexp  (format "^\\*\\** .*RT #%s.*$" ticket) (point-max) t))))
 
 (defun yogurty-insert-rt-ticket-into-org-from-rt-email (&optional arg)
   "Insert an RT ticket into Org and clock in while editing a reply to that email.
