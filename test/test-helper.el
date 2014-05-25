@@ -19,3 +19,13 @@
        (f-delete root-sandbox-path :force))
      (f-mkdir root-sandbox-path)
      ,@body))
+
+(defmacro with-sandbox-org-file (&rest body)
+  "Evaluate BODY using sandbox org file."
+  `(let ((default-directory root-sandbox-path)
+	 (yogurty-org-file (f-join root-sandbox "test.org"))
+     (when (f-dir? root-sandbox-path)
+       (f-delete root-sandbox-path :force))
+     (f-mkdir root-sandbox-path)
+     (f-touch (f-join root-sandbox-path "test.org"))
+     ,@body)))
