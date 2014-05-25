@@ -31,6 +31,17 @@
 	  (goto-char (point-min))
 	  (funcall body)))))
 
+(defun my-org-file-fixture (body)
+  (unwind-protect
+      (progn
+	(with-sandbox-org-file
+	 (set-buffer (find-file-noselect yogurty-org-file))
+	 (insert-string "* RT #2341 -- Big cloud my .emacs file\n")
+	 (insert-string "** RT #2342 -- opt-out for google analytics on website\n")
+	 (insert-string "*** RT #2343 -- Memory foam for my smartphone\n")
+	 (goto-char (point-min))
+	 (funcall body)))))
+
 ; (my-fixture (lambda () (message (yogurty-find-rt-ticket-subject-from-rt-email))))
 
 (ert-deftest yogurty/find-ticket-number-from-string ()
