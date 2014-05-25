@@ -53,17 +53,20 @@
 (defvar yogurty-org-file "all.org" "Filename of the org file.")
 
 ;; FIXME: These two functions should be one that takes an arg.
+;; Tested.
 (defun yogurty-find-rt-ticket-subject-from-string (string)
   "Find a ticket subject from a string."
   (if (string-match (format "\\[%s #\\([0-9]+\\)\\] \\(.*\\)$" yogurty-rt-subjectline) string)
       (match-string 2 string)))
 
+;; Tested.
 (defun yogurty-find-rt-ticket-number-from-string (string)
   "Find a ticket number from a string."
   (if (string-match (format "\\[%s #\\([0-9]+\\)\\] \\(.*\\)$" yogurty-rt-subjectline) string)
       (match-string 1 string)))
 
 ;; FIXME: These two functions should be one that takes an arg.
+;; Tested.
 (defun yogurty-find-rt-ticket-subject-from-rt-email ()
   "Find a ticket subject from rt-email.
 
@@ -75,6 +78,7 @@ Used in a few different places; time to break it out."
 	(yogurty-find-rt-ticket-subject-from-string (thing-at-point 'line))
       (nil))))
 
+;; Tested.
 (defun yogurty-find-rt-ticket-number-from-rt-email ()
   "Find a ticket subject from rt-email.
 
@@ -97,6 +101,7 @@ Returns position of headline, or nil if not found."
    (goto-char (point-min))
    (search-forward-regexp (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)))
 
+;; Tested.
 (defun yogurty-find-rt-ticket-org-headline-in-buffer (ticket)
   "Search for Org headline with RT ticket in buffer.
 
