@@ -98,8 +98,7 @@ Returns position of headline, or nil if not found."
   (interactive "s")
   (save-excursion
    (set-buffer (find-file-noselect yogurty-org-file))
-   (goto-char (point-min))
-   (search-forward-regexp (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)))
+   (yogurty-find-rt-ticket-org-headline-in-buffer ticket)))
 
 ;; Tested.
 (defun yogurty-find-rt-ticket-org-headline-in-buffer (ticket)
