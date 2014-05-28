@@ -91,3 +91,11 @@
   "Should find already-existing RT ticket in org buffer."
   (my-org-file-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-in-org-file "2343") 3)))))
+
+;; FIXME: This test is passing, and it shouldn't be!
+(ert-deftest yogurty/insert-rt-ticket-in-org-file ()
+  "Should find already-existing RT ticket in org buffer."
+  (my-org-file-fixture
+   (progn
+     (yogurty-insert-rt-ticket-into-org-generic "2346" "eBiz it up a notch")
+     (lambda () (should (equal (yogurty-find-rt-ticket-in-org-file "2346") "4"))))))
