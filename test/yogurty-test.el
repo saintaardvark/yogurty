@@ -79,15 +79,15 @@
 
 (ert-deftest yogurty/find-already-existing-rt-ticket-in-org-file-level-1-headline ()
   "Should find already-existing RT ticket in org buffer."
-  (my-org-fixture
+  (my-org-file-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-in-org-file "2341") 1)))))
 
 (ert-deftest yogurty/find-already-existing-rt-ticket-in-org-file-level-2-headline ()
   "Should find already-existing RT ticket in org buffer."
-  (my-org-fixture
+  (my-org-file-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-in-org-file "2342") 2)))))
 
 (ert-deftest yogurty/find-already-existing-rt-ticket-in-org-file-level-3-headline ()
   "Should find already-existing RT ticket in org buffer."
-  (my-org-fixture
+  (my-org-file-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-in-org-file "2343") 3)))))
