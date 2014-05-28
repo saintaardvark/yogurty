@@ -40,6 +40,7 @@
 	 (insert-string "** RT #2342 -- opt-out for google analytics on website\n")
 	 (insert-string "*** RT #2343 -- Memory foam for my smartphone\n")
 	 (goto-char (point-min))
+	 (save-buffer 0)
 	 (funcall body)))))
 
 ; (my-fixture (lambda () (message (yogurty-find-rt-ticket-subject-from-rt-email))))
