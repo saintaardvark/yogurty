@@ -90,7 +90,7 @@ Used in a few different places; time to break it out."
 	(yogurty-find-rt-ticket-number-from-string (thing-at-point 'line))
       (nil))))
 
-;; FIXME: The search should prob be separate function, right?
+;; Tested
 (defun yogurty-find-rt-ticket-in-org-file (ticket)
   "Search for Org headline with RT ticket.
 
