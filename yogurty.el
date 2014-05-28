@@ -90,7 +90,7 @@ Used in a few different places; time to break it out."
 	(yogurty-find-rt-ticket-number-from-string (thing-at-point 'line))
       (nil))))
 
-;; Tested
+;; FIXME: The search should prob be separate function, right?
 (defun yogurty-find-rt-ticket-in-org-file (ticket)
   "Search for Org headline with RT ticket.
 
@@ -142,8 +142,8 @@ If arg provided, do NOT clock in.
    (unless arg
      (org-clock-in))))
 
-(defun yogurty-insert-rt-ticket-into-org (&optional point arg)
-  "A Small but Useful(tm) function to insert an RT ticket into Org.
+(defun yogurty-insert-rt-ticket-into-org-from-rt-browser (&optional point arg)
+  "Insert an RT ticket into Org from rt-liberation ticket browser.
 
 If POINT is nil then called on (point).  If called with arg, check in as well."
   (interactive "P")
