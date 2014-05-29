@@ -40,6 +40,14 @@
 ;; clock out?"  (Because at least some functions clock in when we run
 ;; them.) Need to look for a way to say "just goram kill it", or to
 ;; persuade Org it doesn't need to worry its pretty little head.
+;;
+;; Aha! From org.el:
+;;   ;; Check for running clock before killing a buffer
+;;   (org-add-hook 'kill-buffer-hook 'org-check-running-clock nil 'local)
+;;
+;; I remember coming across something recently about temporarily
+;; disabling hooks when testing...
+
 (defun my-org-file-fixture (body)
   (unwind-protect
       (progn
