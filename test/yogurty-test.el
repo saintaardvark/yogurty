@@ -95,6 +95,8 @@
 ;; FIXME: I *think* I've got this working; I think the progn was
 ;; messing things up (different eval order/precedence than I was
 ;; expecting?)
+;; FIXME: The subject is messed up: "RT #2346 --eBiz" <--note no
+;; space.  Need a test!
 (ert-deftest yogurty/insert-rt-ticket-in-org-file ()
   "Should find already-existing RT ticket in org buffer."
   (my-org-file-fixture
