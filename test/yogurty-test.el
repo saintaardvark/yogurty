@@ -31,6 +31,15 @@
 	  (goto-char (point-min))
 	  (funcall body)))))
 
+;; FIXME: There's a problem here: the kill-buffer is needed to fully
+;; reset the org file in between invocations (though FIXME what about
+;; just catting to the file or some such?  But we still need to kill
+;; the buffer after opening it, so that won't work.).  Otherwise, we
+;; get multiple occurrences of these strings, one set after another.
+;; But when we kill the buffer, org pops up and says "Hey, need to
+;; clock out?"  (Because at least some functions clock in when we run
+;; them.) Need to look for a way to say "just goram kill it", or to
+;; persuade Org it doesn't need to worry its pretty little head.
 (defun my-org-file-fixture (body)
   (unwind-protect
       (progn
@@ -42,7 +51,10 @@
 	 (goto-char (point-min))
 	 (save-buffer 0)
 	 (funcall body)
-	 (org-save-all-org-buffers)))))
+	 (org-save-all-org-buffers)
+	 (save-buffer 0)
+	 (kill-buffer)))))
+
 
 (ert-deftest yogurty/find-ticket-number-from-string ()
   "Should find ticket subject from string."
