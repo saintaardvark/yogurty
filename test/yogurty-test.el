@@ -43,7 +43,6 @@
 	 (save-buffer 0)
 	 (funcall body)))))
 
-; (my-fixture (lambda () (message (yogurty-find-rt-ticket-subject-from-rt-email))))
 
 (ert-deftest yogurty/find-ticket-number-from-string ()
   "Should find ticket subject from string."
