@@ -41,8 +41,8 @@
 	 (insert-string "*** RT #2343 -- Memory foam for my smartphone\n")
 	 (goto-char (point-min))
 	 (save-buffer 0)
-	 (funcall body)))))
-
+	 (funcall body)
+	 (org-save-all-org-buffers)))))
 
 (ert-deftest yogurty/find-ticket-number-from-string ()
   "Should find ticket subject from string."
