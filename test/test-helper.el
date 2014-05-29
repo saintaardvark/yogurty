@@ -28,6 +28,5 @@
        (f-delete root-sandbox-path :force))
      (f-mkdir root-sandbox-path)
      (when (f-file? yogurty-org-file)
-       (f-delete yogurty-org-file :force)
-     (f-touch yogurty-org-file)
-     ,@body)))
+       (f-delete yogurty-org-file :force))
+     ,@body))
