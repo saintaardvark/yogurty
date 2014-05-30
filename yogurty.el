@@ -125,22 +125,20 @@ If argument provided, do NOT clock in.
 (defun yogurty-insert-rt-ticket-into-org-generic (id subject &optional arg)
   "Generic way of inserting an org entry for an RT ticket (if necessary).
 
-If arg provided, do NOT clock in.
-"
+If arg provided, do NOT clock in."
  (interactive "P")
- (save-excursion
-   (set-buffer (find-file-noselect yogurty-org-file))
-   (goto-char (point-min))
-   (if (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)
-       (message "Already in org!")
+ (if (yogurty-find-rt-ticket-in-org-file id)
+   (message "Already in org!")
+   (save-excursion
+     (set-buffer (find-file-noselect yogurty-org-file))
      (progn
        (goto-char (point-max))
        (if (bolp)
 	   ()
 	 (insert "\n"))
-       (insert (format "** RT #%s --%s\n" id subject))))
-   (unless arg
-     (org-clock-in))))
+       (insert (format "** RT #%s --%s\n" id subject)))))
+ (unless arg
+   (org-clock-in)))
 
 (defun yogurty-insert-rt-ticket-into-org-from-rt-browser (&optional point arg)
   "Insert an RT ticket into Org from rt-liberation ticket browser.
