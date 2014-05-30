@@ -112,9 +112,10 @@
   (my-org-file-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-in-org-file "2349") 3)))))
 
-;; FIXME: I *think* I've got this working; I think the progn was
-;; messing things up (different eval order/precedence than I was
-;; expecting?)
+;; Note: previous version of this test used "progn" to do a bunch of
+;; things,  and I think this messed with the order of evaluation.
+;; Don't  do that.
+;;
 ;; FIXME: The subject is messed up: "RT #2346 --eBiz" <--note no
 ;; space.  Need a test!
 (ert-deftest yogurty/insert-rt-ticket-in-org-file ()
