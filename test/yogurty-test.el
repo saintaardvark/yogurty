@@ -31,28 +31,28 @@
 	  (goto-char (point-min))
 	  (funcall body)))))
 
-;; FIXME: There's a problem here: the kill-buffer is needed to fully
-;; reset the org file in between invocations (though FIXME what about
-;; just catting to the file or some such?  But we still need to kill
-;; the buffer after opening it, so that won't work.).  Otherwise, we
-;; get multiple occurrences of these strings, one set after another.
-;; But when we kill the buffer, org pops up and says "Hey, need to
-;; clock out?"  (Because at least some functions clock in when we run
-;; them.) Need to look for a way to say "just goram kill it", or to
-;; persuade Org it doesn't need to worry its pretty little head.
+;; There's a problem here: the kill-buffer is needed to fully reset
+;; the org file in between invocations -- otherwise, we get multiple
+;; occurrences of these strings, one set after another.  But when we
+;; kill the buffer, org pops up and says "Hey, need to clock out?"
+;; (Because at least some functions clock in when we run them.)
+;; That's because org.el  has this bit:
 ;;
-;; Aha! From org.el:
-;;   ;; Check for running clock before killing a buffer
-;;   (org-add-hook 'kill-buffer-hook 'org-check-running-clock nil 'local)
+;; Check for running clock before killing a buffer
+;; (org-add-hook 'kill-buffer-hook 'org-check-running-clock nil 'local)
 ;;
-;; I remember coming across something recently about temporarily
-;; disabling hooks when testing...
+;; So, we use remove-hook to take that out, with a non-nil arg to say
+;; that it's just for this buffer.
+;;
+;; FIXME: Might want to change the name of this test to be a bit
+;; clearer that we're fiddling with the hook this way.
 
 (defun my-org-file-fixture (body)
   (unwind-protect
       (progn
 	(with-sandbox-org-file
 	 (set-buffer (find-file-noselect yogurty-org-file))
+	 (remove-hook 'kill-buffer-hook 'org-check-running-clock t)
 	 (insert-string "* RT #2347 -- Leverage more synergy\n")
 	 (insert-string "** RT #2348 -- Rewrite Emacs in Go\n")
 	 (insert-string "*** RT #2349 -- Port node.js to Java\n")
