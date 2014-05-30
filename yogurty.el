@@ -133,12 +133,11 @@ If arg provided, do NOT clock in."
    (message "Already in org!")
    (save-excursion
      (set-buffer (find-file-noselect yogurty-org-file))
-     (progn
-       (goto-char (point-max))
-       (if (bolp)
-	   ()
-	 (insert "\n"))
-       (insert (format "** RT #%s --%s\n" id subject)))))
+     (goto-char (point-max))
+     (if (bolp)
+	 ()
+       (insert "\n"))
+     (insert (format "** RT #%s --%s\n" id subject))))
  (unless arg
    (org-clock-in)))
 
