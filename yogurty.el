@@ -138,7 +138,7 @@ If arg provided, do NOT clock in.
        (if (bolp)
 	   ()
 	 (insert "\n"))
-       (insert (format "** RT #%s --%s\n" id subject))))
+       (insert (format "** RT #%s -- %s\n" id subject))))
    (unless arg
      (org-clock-in))))
 
