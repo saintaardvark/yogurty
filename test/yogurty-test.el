@@ -122,7 +122,7 @@
   "Should find already-existing RT ticket in org buffer."
   (my-org-file-fixture
      (lambda ()
-       (yogurty-insert-rt-ticket-into-org-generic "2346" "eBiz it up a notch")
+       (yogurty-insert-rt-ticket-into-org-generic "2346" "eBiz it up a notch" 166)
        (save-buffer)
        (should (equal (yogurty-find-rt-ticket-in-org-file "2346") 4)))))
 
