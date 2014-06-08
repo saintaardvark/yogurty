@@ -1,4 +1,4 @@
-test: ert ecukes
+test: ert
 
 ert:
 	~/.cask/bin/cask exec ert-runner || cat test/sandbox/test.org && exit 1
