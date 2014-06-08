@@ -11,7 +11,7 @@
 ;;         (lambda ()
 ;;           [test code])))
 
-(defun my-fixture (body)
+(defun my-email-fixture (body)
   (unwind-protect
       (progn
 	(with-temp-buffer
@@ -74,12 +74,12 @@
 
 (ert-deftest yogurty/find-rt-ticket-subject-from-email ()
   "Should find ticket subject from email."
-  (my-fixture
+  (my-email-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-subject-from-rt-email) "opt-out for google analytics on website")))))
 
 (ert-deftest yogurty/find-rt-ticket-number-from-email ()
   "Should find ticket subject from email."
-  (my-fixture
+  (my-email-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-number-from-rt-email) "2341")))))
 
 (ert-deftest yogurty/find-already-existing-rt-ticket-in-buffer-level-1-headline ()
