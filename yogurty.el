@@ -122,6 +122,7 @@ If argument provided, do NOT clock in.
 	(yogurty-insert-rt-ticket-into-org-generic id subject arg)
 	    (org-clock-in)))
 
+;; Tested.
 (defun yogurty-insert-rt-ticket-into-org-generic (id subject &optional arg)
   "Generic way of inserting an org entry for an RT ticket (if necessary).
 
