@@ -289,6 +289,7 @@ ticket number that's in yogurty-clocked, which FIXME."
        (format " [rt.chibi.ubc.ca #%s] "
 	       (read-string "Ticket: " nil nil (format "%s" (yogurty-clocked-into-rt-ticket-number-only))))))))
 
+;; FIXME: Is this a duplicate of yogurty-insert-rt-ticket-into-org-generic?
 (defun yogurty-insert-rt-ticket-into-org (&optional point arg)
   "A Small but Useful(tm) function to insert an RT ticket into Org.
 
