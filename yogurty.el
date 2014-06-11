@@ -196,6 +196,7 @@ Depends on regular expressions, which of course puts me in a state of sin."
   (interactive)
   (find-file (format "/home/hugh/git/rt_%s/notes.org" (yogurty-clocked-into-rt-ticket-number-only))))
 
+;; Tested.
 (defun yogurty-insert-rt-ticket-commit-comment ()
   "A Small but Useful(tm) function to insert a comment referencing an RT ticket.
 

@@ -147,6 +147,17 @@
      (save-buffer)
      (should (equal (yogurty-clocked-into-rt-ticket-number-only) "2348")))))
 
+(ert-deftest yogurty-test/insert-rt-ticket-commit-comment ()
+  "Test return code."
+  (my-org-file-fixture
+   (lambda ()
+     (yogurty-insert-rt-ticket-into-org-generic "2348" "Communitize thought leadership")
+     (save-buffer)
+     (with-temp-buffer
+       (yogurty-insert-rt-ticket-commit-comment)
+       (beginning-of-line)
+       (should (looking-at "see RT #2348 for details."))))))
+
 ;; (ert-deftest yogurty-test/right-subjectline-for-ticket-inserted-into-org-file ()
 ;;   "Should find already-existing RT ticket in org buffer."
 ;;   (my-org-file-fixture
