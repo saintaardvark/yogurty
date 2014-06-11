@@ -179,6 +179,7 @@ Depends on regular expressions, which of course puts me in a state of sin."
     (when (string-match "\\(RT #[0-9]+\\)" org-clock-current-task)
      (eval (format "%s" (match-string 1 org-clock-current-task))))))
 
+;; Tested.
 (defun yogurty-clocked-into-rt-ticket-number-only ()
   "A Small but Useful(tm) function to see if I'm clocked into an RT ticket.
 

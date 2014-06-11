@@ -137,6 +137,14 @@
        (goto-line (yogurty-find-rt-ticket-org-headline-in-buffer "2346"))
        (should (equal (looking-at (rx bol "** RT #2346 -- eBiz it up a notch")) t)))))
 
+(ert-deftest yogurty-test/yogurty-clocked-into-rt-ticket-number-only ()
+  "Test return code."
+  (my-org-file-fixture
+   (lambda ()
+     (yogurty-insert-rt-ticket-into-org-generic "2348" "Communitize thought leadership")
+     (save-buffer)
+     (should (equal (yogurty-clocked-into-rt-ticket-number-only) "2348")))))
+
 ;; (ert-deftest yogurty-test/right-subjectline-for-ticket-inserted-into-org-file ()
 ;;   "Should find already-existing RT ticket in org buffer."
 ;;   (my-org-file-fixture
