@@ -139,7 +139,7 @@
 
 ;; save-buffer here and elsewhere not strictly needed, but a good bit
 ;; of housekeeping.
-(ert-deftest yogurty-test/yogurty-clocked-into-rt-ticket-number-only ()
+(ert-deftest yogurty-test/clocked-into-rt-ticket-number-only ()
   "Should get ticket number that we're clocked into."
   (my-org-file-fixture
    (lambda ()
