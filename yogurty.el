@@ -100,7 +100,11 @@ Returns position of headline, or nil if not found."
    (set-buffer (find-file-noselect yogurty-org-file))
    (yogurty-find-rt-ticket-org-headline-in-buffer ticket)))
 
-;; Tested.
+;; FIXME: Tested, but not completely.
+;; Just added sad-path tests, and this is *not passing*.  Problem is
+;; that line-number-at-pos returns current buffer location if POS is nil.
+;; Thus, when searching for tickets that are *not* in the buffer, we get
+;; 1 instead of nil.  CRAP.
 (defun yogurty-find-rt-ticket-org-headline-in-buffer (ticket)
   "Search for Org headline with RT ticket in buffer.
 
