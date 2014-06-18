@@ -123,6 +123,8 @@ If argument provided, do NOT clock in.
 	(subject (yogurty-find-rt-ticket-subject-from-rt-email)))
 	(yogurty-insert-rt-ticket-into-org-generic id subject arg)
 	    (org-clock-in)))
+;; FIXME: The check for an already-existing ticket is duplicated in a
+;; number of places; break that out.  (message "Already in org!")
 
 ;; Tested.
 (defun yogurty-insert-rt-ticket-into-org-generic (id subject &optional arg)
