@@ -21,6 +21,17 @@
 	  (goto-char (point-min))
 	  (funcall body)))))
 
+;; Ticket that's not in the org-file fixture.
+(defun my-email-fixture-new-ticket (body)
+  (unwind-protect
+      (progn
+	(with-temp-buffer
+	  (insert-string "From: <aardvark@saintaardvarkthecarpeted.com>")
+	  (insert-string "To: <rt@example.com>")
+	  (insert-string "Subject: [rt.example.com #2355] /dev/bollocks should not wait on /dev/random")
+	  (goto-char (point-min))
+	  (funcall body)))))
+
 (defun my-org-fixture (body)
   (unwind-protect
       (progn
