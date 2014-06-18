@@ -100,11 +100,7 @@ Returns position of headline, or nil if not found."
    (set-buffer (find-file-noselect yogurty-org-file))
    (yogurty-find-rt-ticket-org-headline-in-buffer ticket)))
 
-;; FIXME: Tested, but not completely.
-;; Just added sad-path tests, and this is *not passing*.  Problem is
-;; that line-number-at-pos returns current buffer location if POS is nil.
-;; Thus, when searching for tickets that are *not* in the buffer, we get
-;; 1 instead of nil.  CRAP.
+;; Tested.
 (defun yogurty-find-rt-ticket-org-headline-in-buffer (ticket)
   "Search for Org headline with RT ticket in buffer.
 
@@ -112,7 +108,9 @@ Returns position of headline, or nil if not found."
   (interactive "s")
   (save-excursion
    (goto-char (point-min))
-   (line-number-at-pos (search-forward-regexp  (format "^\\*\\** .*RT #%s.*$" ticket) (point-max) t))))
+   (if (re-search-forward (format "^\\*\\** .*RT #%s .*$" ticket) (point-max) t)
+       (line-number-at-pos)
+     nil)))
 
 (defun yogurty-insert-rt-ticket-into-org-from-rt-email (&optional arg)
   "Insert an RT ticket into Org and clock in while editing a reply to that email.
