@@ -183,6 +183,22 @@
        (beginning-of-line)
        (should (looking-at "see RT #2348 for details."))))))
 
+;; Wah, there's a lot to test with this one (and doubtless many
+;; others):
+;; - new ticket gets inserted
+;; - already-existing ticket not duplicated
+;; - clocking in works
+;; - *not* clocking in works.
+
+;; FIXME: The number 5 is just a guess.
+(ert-deftest yogurty-test/insert-rt-ticket-into-org-from-rt-email-already-existing-ticket ()
+  "Make sure ticket ends up in org file."
+  (my-org-file-fixture
+   (my-email-fixture-new-ticket
+    (lambda ()
+      (yogurty-insert-rt-ticket-into-org-from-rt-email)
+      (should (equal (yogurty-find-rt-ticket-in-org-file) 5))))))
+
 ;; (ert-deftest yogurty-test/right-subjectline-for-ticket-inserted-into-org-file ()
 ;;   "Should find already-existing RT ticket in org buffer."
 ;;   (my-org-file-fixture
