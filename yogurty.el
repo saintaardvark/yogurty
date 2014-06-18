@@ -112,6 +112,8 @@ Returns position of headline, or nil if not found."
        (line-number-at-pos)
      nil)))
 
+;; Next test
+;; FIXME: We're not testing to see if we should clock in.
 (defun yogurty-insert-rt-ticket-into-org-from-rt-email (&optional arg)
   "Insert an RT ticket into Org and clock in while editing a reply to that email.
 Faster than waiting for rt-browser to update.
