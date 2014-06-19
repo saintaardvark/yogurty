@@ -138,9 +138,7 @@ If arg provided, do NOT clock in.
 "
  (interactive "P")
  (save-excursion
-   (set-buffer (find-file-noselect yogurty-org-file))
-   (goto-char (point-min))
-   (if (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)
+   (if (yogurty-find-rt-ticket-in-org-file id)
        (message "Already in org!")
      (progn
        (goto-char (point-max))
