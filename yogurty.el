@@ -123,11 +123,12 @@ If argument provided, do NOT clock in.
   (interactive "P")
   (let ((id (yogurty-find-rt-ticket-number-from-rt-email))
 	(subject (yogurty-find-rt-ticket-subject-from-rt-email)))
-	(yogurty-insert-rt-ticket-into-org-generic id subject arg)
-	(org-clock-in)))
+    (yogurty-insert-rt-ticket-into-org-generic id subject arg)))
 
 ;; FIXME: The check for an already-existing ticket is duplicated in a
-;; number of places; break that out.  (message "Already in org!")
+;; number of places; Should be using
+;; yogurty-find-rt-ticket-org-headline-in-buffer.
+
 
 ;; Tested.
 (defun yogurty-insert-rt-ticket-into-org-generic (id subject &optional arg)
