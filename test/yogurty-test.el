@@ -164,6 +164,21 @@
 
 ;; save-buffer here and elsewhere not strictly needed, but a good bit
 ;; of housekeeping.
+
+;; FIXME: This test is failing, and I think it's because we're using a
+;; ticket number that *already exists*.  As a result, when we clock
+;; in, we're clocking in on the one above it: 2347,
+;; leverage-more-synergy.  Thus:
+;; - should switch this test to some non-matching number
+;; - we need a new test for that error!
+;; (ert-deftest yogurty-test/clocked-into-rt-ticket-number-only ()
+;;   "Should get ticket number that we're clocked into."
+;;   (my-org-file-fixture
+;;    (lambda ()
+;;      (yogurty-insert-rt-ticket-into-org-generic "2348" "Communitize thought leadership" 1)
+;;      (save-buffer)
+;;      (should (equal (yogurty-clocked-into-rt-ticket-number-only) "2348")))))
+
 (ert-deftest yogurty-test/clocked-into-rt-ticket-number-only ()
   "Should get ticket number that we're clocked into."
   (my-org-file-fixture
