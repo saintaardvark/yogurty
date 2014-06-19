@@ -183,20 +183,20 @@
   "Should get ticket number that we're clocked into."
   (my-org-file-fixture
    (lambda ()
-     (yogurty-insert-rt-ticket-into-org-generic "2348" "Communitize thought leadership")
+     (yogurty-insert-rt-ticket-into-org-generic "2350" "Communitize thought leadership")
      (save-buffer)
-     (should (equal (yogurty-clocked-into-rt-ticket-number-only) "2348")))))
+     (should (equal (yogurty-clocked-into-rt-ticket-number-only) "2350")))))
 
 (ert-deftest yogurty-test/insert-rt-ticket-commit-comment ()
   "Test return code."
   (my-org-file-fixture
    (lambda ()
-     (yogurty-insert-rt-ticket-into-org-generic "2348" "Communitize thought leadership")
+     (yogurty-insert-rt-ticket-into-org-generic "2350" "Communitize thought leadership")
      (save-buffer)
      (with-temp-buffer
        (yogurty-insert-rt-ticket-commit-comment)
        (beginning-of-line)
-       (should (looking-at "see RT #2348 for details."))))))
+       (should (looking-at "see RT #2350 for details."))))))
 
 ;; Wah, there's a lot to test with this one (and doubtless many
 ;; others):
