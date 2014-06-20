@@ -210,6 +210,8 @@
      (save-buffer)
      (should (equal (yogurty-clocked-into-rt-ticket-number-only) "2348")))))
 
+;; FIXME: This asked if it could steal all.org -- it's not using the
+;; fixture file for some reason.
 (ert-deftest yogurty-test/insert-rt-ticket-commit-comment ()
   "Test return code."
   (my-org-file-fixture
