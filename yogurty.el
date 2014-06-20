@@ -137,6 +137,7 @@ If arg provided, do NOT clock in.
 "
   (interactive "P")
   (save-excursion
+    (set-buffer (find-file-noselect yogurty-org-file))
     ;; FIXME: I'll bet you CASH MONEY there's a much better way to do
     ;; this.
     (let ((pos (yogurty-find-rt-ticket-in-org-file id)))
