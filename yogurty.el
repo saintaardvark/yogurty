@@ -138,16 +138,20 @@ If arg provided, do NOT clock in.
 "
  (interactive "P")
  (save-excursion
-   (if (yogurty-find-rt-ticket-in-org-file id)
-       (message "Already in org!")
-     (progn
-       (goto-char (point-max))
-       (if (bolp)
-	   ()
-	 (insert "\n"))
-       (insert (format "** RT #%s -- %s\n" id subject))))
-   (unless arg
-     (org-clock-in))))
+   ;; FIXME: I'll bet you CASH MONEY there's a much better way to do
+   ;; this.
+   (let ((pos (yogurty-find-rt-ticket-in-org-file id)))
+     (if (not (eq pos nil))
+	 (progn
+	   (message "Already in org!")
+	   (goto-line pos))
+	 (goto-char (point-max))
+	 (if (bolp)
+	     ()
+	   (insert "\n"))
+	 (insert (format "** RT #%s -- %s\n" id subject))))
+     (unless arg
+       (org-clock-in))))
 
 (defun yogurty-insert-rt-ticket-into-org-from-rt-browser (&optional point arg)
   "Insert an RT ticket into Org from rt-liberation ticket browser.
