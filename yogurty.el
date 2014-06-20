@@ -129,7 +129,6 @@ If argument provided, do NOT clock in.
 ;; number of places; Should be using
 ;; yogurty-find-rt-ticket-org-headline-in-buffer.
 
-
 ;; Tested.
 (defun yogurty-insert-rt-ticket-into-org-generic (id subject &optional arg)
   "Generic way of inserting an org entry for an RT ticket (if necessary).
