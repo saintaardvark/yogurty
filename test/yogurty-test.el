@@ -248,6 +248,29 @@
       (lambda ()
 	(yogurty-insert-rt-ticket-into-org-from-rt-email)
 	(should (equal (yogurty-clocked-into-rt-ticket) "RT #2355")))))))
+
+;; This test fails, but only if run in after
+;; yogurty-test/clocked-into-rt-ticket-number-only-new-ticket.  Weird.
+;; If run on its own it works; if run as part of big batch it fails;
+;; if run after clocked-into,  it fails.
+(ert-deftest yogurty-test/clocked-into-rt-ticket-sad-path-not-clocked-in ()
+  "Make sure we can detect when we're clocked in."
+  (my-org-file-fixture
+   (lambda ()
+     (my-email-fixture-new-ticket
+      (lambda ()
+	(should (equal (yogurty-clocked-into-rt-ticket) nil)))))))
+
+;; (ert-deftest yogurty-test/wha-happened ()
+;;   "Debugging."
+;;   (my-org-file-fixture
+;;    (lambda ()
+;;      (my-email-fixture-new-ticket		;
+;;       (lambda ()
+;; 	(message "Hello, world!")
+;; 	(message yogurty-org-file))))))
+
+
 ;; (ert-deftest yogurty-test/right-subjectline-for-ticket-inserted-into-org-file ()
 ;;   "Should find already-existing RT ticket in org buffer."
 ;;   (my-org-file-fixture
