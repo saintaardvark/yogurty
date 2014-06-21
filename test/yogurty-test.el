@@ -240,6 +240,14 @@
 	(yogurty-insert-rt-ticket-into-org-from-rt-email)
 	(should (equal (yogurty-find-rt-ticket-in-org-file "2355") 4)))))))
 
+(ert-deftest yogurty-test/clocked-into-rt-ticket-happy-path ()
+  "Make sure we can detect when we're clocked in."
+  (my-org-file-fixture
+   (lambda ()
+     (my-email-fixture-new-ticket
+      (lambda ()
+	(yogurty-insert-rt-ticket-into-org-from-rt-email)
+	(should (equal (yogurty-clocked-into-rt-ticket) "RT #2355")))))))
 ;; (ert-deftest yogurty-test/right-subjectline-for-ticket-inserted-into-org-file ()
 ;;   "Should find already-existing RT ticket in org buffer."
 ;;   (my-org-file-fixture
