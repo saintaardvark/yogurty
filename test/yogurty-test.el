@@ -234,10 +234,11 @@
 (ert-deftest yogurty-test/insert-rt-ticket-into-org-from-rt-email-already-existing-ticket ()
   "Make sure ticket ends up in org file."
   (my-org-file-fixture
-   (my-email-fixture-new-ticket
-    (lambda ()
-      (yogurty-insert-rt-ticket-into-org-from-rt-email)
-      (should (equal (yogurty-find-rt-ticket-in-org-file) 5))))))
+   (lambda ()
+     (my-email-fixture-new-ticket
+      (lambda ()
+	(yogurty-insert-rt-ticket-into-org-from-rt-email)
+	(should (equal (yogurty-find-rt-ticket-in-org-file "2355") 4)))))))
 
 ;; (ert-deftest yogurty-test/right-subjectline-for-ticket-inserted-into-org-file ()
 ;;   "Should find already-existing RT ticket in org buffer."
