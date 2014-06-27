@@ -140,11 +140,8 @@
    (lambda () (should (equal (yogurty-find-rt-ticket-in-org-file "2349") 3)))))
 
 ;; Note: previous version of this test used "progn" to do a bunch of
-;; things,  and I think this messed with the order of evaluation.
-;; Don't  do that.
-;;
-;; FIXME: The subject is messed up: "RT #2346 --eBiz" <--note no
-;; space.  Need a test!
+;; things, and I think this messed with the order of evaluation.
+;; Don't do that.
 (ert-deftest yogurty-test/insert-rt-ticket-into-org-generic ()
   "Should find already-existing RT ticket in org buffer."
   (my-org-file-fixture
@@ -174,9 +171,7 @@
 ;; As a result, when we in, we're clocking in on the one above it:
 ;; 2347, leverage-more-synergy.
 
-;; Thus:
-;; - should switch this test to some non-matching number --done
-;; - we need a new test for that error!
+;; Thus: we need a new test for that error!
 
 ;; (ert-deftest yogurty-test/clocked-into-rt-ticket-number-only ()
 ;;   "Should get ticket number that we're clocked into."
@@ -196,13 +191,13 @@
      (save-buffer)
      (should (equal (yogurty-clocked-into-rt-ticket-number-only) "2350")))))
 
-;; So this test is for the situation above: inserting a ticket when
-;; there's already one in there with that number.  There are two
+;; FIXME: So this test is for the situation above: inserting a ticket
+;; when there's already one in there with that number.  There are two
 ;; things to think about here: first, should we update the org entry
 ;; if the subject line is different?  (This could probably be
 ;; configurable, or dependable on an argument.)  Second, make sure
-;; that we're clocking into the right damn ticket  -- because right
-;; now,  we're not.
+;; that we're clocking into the right damn ticket -- because right
+;; now, we're not.
 (ert-deftest yogurty-test/clocked-into-rt-ticket-number-only-matching-ticket ()
   "Should get ticket number that we're clocked into."
   (my-org-file-fixture
@@ -211,8 +206,6 @@
      (save-buffer)
      (should (equal (yogurty-clocked-into-rt-ticket-number-only) "2348")))))
 
-;; FIXME: This asked if it could steal all.org -- it's not using the
-;; fixture file for some reason.
 (ert-deftest yogurty-test/insert-rt-ticket-commit-comment ()
   "Test return code."
   (my-org-file-fixture
