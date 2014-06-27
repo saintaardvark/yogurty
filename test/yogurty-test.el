@@ -70,6 +70,7 @@
 	 (goto-char (point-min))
 	 (save-buffer 0)
 	 (funcall body)
+	 (org-clock-out nil t)
 	 (org-save-all-org-buffers)
 	 (save-buffer 0)
 	 (kill-buffer)))))
