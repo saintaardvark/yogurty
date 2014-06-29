@@ -249,6 +249,7 @@
 ;; fixtuure above, a that seems to have fixed things.  However, I'm
 ;; leaving this note here because I'm suspicious that it'll crop up
 ;; again.
+(ert-deftest yogurty-test/clocked-into-rt-ticket-sad-path-not-clocked-in ()
   "Make sure we can detect when we're clocked in."
   (my-org-file-fixture
    (lambda ()
