@@ -178,6 +178,7 @@ If POINT is nil then called on (point).  If called with arg, check in as well."
       (if arg
 	  (org-clock-in)))))
 
+;; Tested
 (defun yogurty-clocked-into-rt-ticket ()
   "A Small but Useful(tm) function to see if I'm clocked into an RT ticket.
 
