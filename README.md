@@ -19,3 +19,8 @@ to combine Org, RT and have the all-import two "y" characters.
 
 * https://github.com/saintaardvark/yogurty
 * http://git.saintaardvarkthecarpeted.com/?p=yogurty.git;a=summary
+
+# TODO
+
+* If updating an Org entry, update the RT subject line ("rt subject
+  1234 Hello world")
