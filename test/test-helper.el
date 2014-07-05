@@ -30,3 +30,12 @@
      (when (f-file? yogurty-org-file)
        (f-delete yogurty-org-file :force))
      ,@body))
+
+(defmacro with-sandbox-rt-notes (&rest body)
+  "Evaluate BODY using sandbox directory for RT notes."
+  `(let ((default-directory root-sandbox-path)
+	 (yogurty-rt-directory root-sandbox-path))
+     (when (f-dir? root-sandbox-path)
+       (f-delete root-sandbox-path :force))
+     (f-mkdir root-sandbox-path)
+     ,@body))
