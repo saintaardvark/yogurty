@@ -256,6 +256,13 @@
       (lambda ()
 	(should (equal (yogurty-clocked-into-rt-ticket) nil)))))))
 
+(ert-deftest yogurty-test/open-org-file-for-rt-ticket-sad-path ()
+  "Don't open notes file for a ticket if not clocked in."
+  (my-org-file-fixture
+   (lambda ()
+     (unwind-protect
+	 (yogurty-open-org-file-for-rt-ticket))
+      (should (equal (buffer-file-name) yogurty-org-file)))))
 ;; (ert-deftest yogurty-test/wha-happened ()
 ;;   "Debugging."
 ;;   (my-org-file-fixture

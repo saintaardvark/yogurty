@@ -204,7 +204,9 @@ Depends on regular expressions, which of course puts me in a state of sin."
 (defun yogurty-open-org-file-for-rt-ticket ()
   "A Small but Useful(tm) function to open the notes file for a ticket."
   (interactive)
-  (find-file (format "%s/rt_%s/notes.org" yogurty-rt-notes-dir (yogurty-clocked-into-rt-ticket-number-only))))
+  (let ((number (yogurty-clocked-into-rt-ticket-number-only)))
+    (when (not (equal nil number))
+      (find-file (format "%s/rt_%s/notes.org" yogurty-rt-notes-dir number)))))
 
 ;; Tested.
 (defun yogurty-insert-rt-ticket-commit-comment ()
