@@ -263,6 +263,16 @@
      (unwind-protect
 	 (yogurty-open-org-file-for-rt-ticket))
       (should (equal (buffer-file-name) yogurty-org-file)))))
+
+;; FIXME:  Need to account for when notes directory not present.
+(ert-deftest yogurty-test/open-org-file-for-rt-ticket-happy-path ()
+  "Open the right notes file for a ticket if clocked in."
+  (my-org-file-fixture
+   (lambda ()
+     (org-clock-in)
+     (yogurty-open-org-file-for-rt-ticket)
+     (should (equal (buffer-file-name) "/home/hugh/git/rt_2347/notes.org")))))
+
 ;; (ert-deftest yogurty-test/wha-happened ()
 ;;   "Debugging."
 ;;   (my-org-file-fixture
