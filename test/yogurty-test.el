@@ -47,7 +47,7 @@
 ;; occurrences of these strings, one set after another.  But when we
 ;; kill the buffer, org pops up and says "Hey, need to clock out?"
 ;; (Because at least some functions clock in when we run them.)
-;; That's because org.el  has this bit:
+;; That's because org.el has this bit:
 ;;
 ;; Check for running clock before killing a buffer
 ;; (org-add-hook 'kill-buffer-hook 'org-check-running-clock nil 'local)
