@@ -201,7 +201,9 @@ Depends on regular expressions, which of course puts me in a state of sin."
 	(format "%s" (match-string 1 org-clock-current-task))
       ())))
 
-;; Tested PARTLY.  Need test for dir existence.
+;; FIXME: Not testing for presence of directory/notes file because user
+;; will get prompted to create when saving file.
+;; Tested.
 (defun yogurty-open-org-file-for-rt-ticket ()
   "A Small but Useful(tm) function to open the notes file for a ticket."
   (interactive)
