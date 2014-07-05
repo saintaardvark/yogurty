@@ -51,6 +51,7 @@
 (defvar yogurty-rt-server "localhost" "Hostname of the RT server -- where to point rt.")
 (defvar yogurty-rt-subjectline "rt.example.com" "The RT subject line -- ie, rt.example.com.")
 (defvar yogurty-org-file "all.org" "Filename of the org file.")
+(defvar yogurty-rt-notes-dir "/home/hugh/git" "What directory to keep RT notes files in.")
 
 ;; FIXME: These two functions should be one that takes an arg.
 ;; Tested.
@@ -201,10 +202,15 @@ Depends on regular expressions, which of course puts me in a state of sin."
 	(format "%s" (match-string 1 org-clock-current-task))
       ())))
 
+;; FIXME: Not testing for presence of directory/notes file because user
+;; will get prompted to create when saving file.
+;; Tested.
 (defun yogurty-open-org-file-for-rt-ticket ()
   "A Small but Useful(tm) function to open the notes file for a ticket."
   (interactive)
-  (find-file (format "/home/hugh/git/rt_%s/notes.org" (yogurty-clocked-into-rt-ticket-number-only))))
+  (let ((number (yogurty-clocked-into-rt-ticket-number-only)))
+    (when (not (equal nil number))
+      (find-file (format "%s/rt_%s/notes.org" yogurty-rt-notes-dir number)))))
 
 ;; Tested.
 (defun yogurty-insert-rt-ticket-commit-comment ()
