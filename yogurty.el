@@ -51,6 +51,7 @@
 (defvar yogurty-rt-server "localhost" "Hostname of the RT server -- where to point rt.")
 (defvar yogurty-rt-subjectline "rt.example.com" "The RT subject line -- ie, rt.example.com.")
 (defvar yogurty-org-file "all.org" "Filename of the org file.")
+(defvar yogurty-rt-notes-dir "/home/hugh/git" "What directory to keep RT notes files in.")
 
 ;; FIXME: These two functions should be one that takes an arg.
 ;; Tested.
@@ -203,7 +204,7 @@ Depends on regular expressions, which of course puts me in a state of sin."
 (defun yogurty-open-org-file-for-rt-ticket ()
   "A Small but Useful(tm) function to open the notes file for a ticket."
   (interactive)
-  (find-file (format "/home/hugh/git/rt_%s/notes.org" (yogurty-clocked-into-rt-ticket-number-only))))
+  (find-file (format "%s/rt_%s/notes.org" yogurty-rt-notes-dir (yogurty-clocked-into-rt-ticket-number-only))))
 
 ;; Tested.
 (defun yogurty-insert-rt-ticket-commit-comment ()
