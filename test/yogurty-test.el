@@ -257,6 +257,18 @@
       (lambda ()
 	(should (equal (yogurty-clocked-into-rt-ticket) nil)))))))
 
+(ert-deftest yogurty-test/open-org-file-for-rt-ticket-sandbox-file ()
+  "Open the notes file for a ticket."
+  (my-org-file-fixture
+   (lambda ()
+     (my-email-fixture
+      (lambda ()
+	(with-sandbox-rt-notes-file
+	 (yogurty-insert-rt-ticket-into-org-from-rt-email)
+	 (yogurty-open-org-file-for-rt-ticket)
+	 (should (equal (buffer-file-name) (format "%s/rt_2341/notes.org" root-sandbox-path)))))))))
+
+
 ;; (ert-deftest yogurty-test/wha-happened ()
 ;;   "Debugging."
 ;;   (my-org-file-fixture
