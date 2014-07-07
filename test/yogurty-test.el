@@ -156,7 +156,7 @@
 ;; - clocking in works
 ;; - *not* clocking in works.
 
-(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-check-ticket-insert ()
+(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-check-new-ticket-insert ()
   "Make sure new ticket gets added."
   (my-org-file-fixture
      (lambda ()
