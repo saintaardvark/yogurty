@@ -170,7 +170,10 @@
      (lambda ()
        (yogurty-insert-rt-ticket-into-org-generic "2348" "Rewrite Emacs in Go" 166)
        (save-buffer)
-       (should (equal (yogurty-find-rt-ticket-in-org-file "2348") 2)))))
+       ;; (should (equal (yogurty-find-rt-ticket-in-org-file "2348") 2)))))
+       ;; Better test: make sure there's only one occurrence of the headline.
+       (goto-char (point-min))
+       (should (equal (count-matches (rx bol "** RT #2348 -- Rewrite Emacs in Go")) 1)))))
 
 (ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-correct-subject-line ()
   "Make sure adding a new ticket gives an Org entry that's correct."
