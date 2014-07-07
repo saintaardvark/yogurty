@@ -149,22 +149,31 @@
 ;; Note: previous version of this test used "progn" to do a bunch of
 ;; things, and I think this messed with the order of evaluation.
 ;; Don't do that.
-(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic ()
-  "Should find already-existing RT ticket in org buffer."
 ;; Wah, there's a lot to test with this one (and doubtless many
 ;; others):
 ;; - new ticket gets inserted
 ;; - already-existing ticket not duplicated
 ;; - clocking in works
 ;; - *not* clocking in works.
+
+(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-check-ticket-insert ()
+  "Make sure new ticket gets added."
   (my-org-file-fixture
      (lambda ()
        (yogurty-insert-rt-ticket-into-org-generic "2346" "eBiz it up a notch" 166)
        (save-buffer)
        (should (equal (yogurty-find-rt-ticket-in-org-file "2346") 4)))))
 
-(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-correct-subject-line ()
+(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-already-existing-ticket ()
   "Should find already-existing RT ticket in org buffer."
+  (my-org-file-fixture
+     (lambda ()
+       (yogurty-insert-rt-ticket-into-org-generic "2348" "Rewrite Emacs in Go" 166)
+       (save-buffer)
+       (should (equal (yogurty-find-rt-ticket-in-org-file "2348") 2)))))
+
+(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-correct-subject-line ()
+  "Make sure adding a new ticket gives an Org entry that's correct."
   (my-org-file-fixture
      (lambda ()
        (yogurty-insert-rt-ticket-into-org-generic "2346" "eBiz it up a notch" 1)
@@ -230,8 +239,8 @@
        (beginning-of-line)
        (should (looking-at "see RT #2350 for details."))))))
 
-(ert-deftest yogurty-test/insert-rt-ticket-into-org-from-rt-email-already-existing-ticket ()
-  "Make sure ticket ends up in org file."
+(ert-deftest yogurty-test/insert-rt-ticket-into-org-from-rt-email-new-ticket ()
+  "Make sure new ticket ends up in org file."
   (my-org-file-fixture
    (lambda ()
      (my-email-fixture-new-ticket
