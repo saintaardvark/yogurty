@@ -151,6 +151,12 @@
 ;; Don't do that.
 (ert-deftest yogurty-test/insert-rt-ticket-into-org-generic ()
   "Should find already-existing RT ticket in org buffer."
+;; Wah, there's a lot to test with this one (and doubtless many
+;; others):
+;; - new ticket gets inserted
+;; - already-existing ticket not duplicated
+;; - clocking in works
+;; - *not* clocking in works.
   (my-org-file-fixture
      (lambda ()
        (yogurty-insert-rt-ticket-into-org-generic "2346" "eBiz it up a notch" 166)
@@ -223,13 +229,6 @@
        (yogurty-insert-rt-ticket-commit-comment)
        (beginning-of-line)
        (should (looking-at "see RT #2350 for details."))))))
-
-;; Wah, there's a lot to test with this one (and doubtless many
-;; others):
-;; - new ticket gets inserted
-;; - already-existing ticket not duplicated
-;; - clocking in works
-;; - *not* clocking in works.
 
 (ert-deftest yogurty-test/insert-rt-ticket-into-org-from-rt-email-already-existing-ticket ()
   "Make sure ticket ends up in org file."
