@@ -84,13 +84,9 @@
 
 ;; Name for tests: yogurty-test/function-name-short-description-if-necessary
 
-(ert-deftest yogurty-test/find-rt-ticket-subject-from-email ()
-  "Should find ticket subject from email."
-  (my-email-fixture
-   (lambda () (should (equal (yogurty-find-rt-ticket-subject-from-rt-email) "opt-out for google analytics on website")))))
 
 
-(ert-deftest yogurty-test/find-rt-ticket-org-headline-in-buffer-level-1-headline ()
+(ert-deftest yogurty-test/find-prt-ticket-org-headline-in-buffer-level-1-headline ()
   "Should find already-existing RT ticket in org buffer."
   (my-org-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-org-headline-in-buffer "2341") 1)))))
