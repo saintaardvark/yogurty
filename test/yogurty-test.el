@@ -84,25 +84,11 @@
 
 ;; Name for tests: yogurty-test/function-name-short-description-if-necessary
 
-;; FIXME: Need sad-path tests for this -- give it a bogus string and
-;; make sure it fails.
-(ert-deftest yogurty-test/find-ticket-number-from-string ()
-  "Should find ticket subject from string."
-  (should (equal (yogurty-find-rt-ticket-number-from-string rt-test-string) "2341")))
-
-(ert-deftest yogurty-test/find-ticket-subject-from-string ()
-  "Should find ticket subject from string."
-  (should (equal (yogurty-find-rt-ticket-subject-from-string rt-test-string) "opt-out for google analytics on website")))
-
 (ert-deftest yogurty-test/find-rt-ticket-subject-from-email ()
   "Should find ticket subject from email."
   (my-email-fixture
    (lambda () (should (equal (yogurty-find-rt-ticket-subject-from-rt-email) "opt-out for google analytics on website")))))
 
-(ert-deftest yogurty-test/find-rt-ticket-number-from-rt-email ()
-  "Should find ticket subject from email."
-  (my-email-fixture
-   (lambda () (should (equal (yogurty-find-rt-ticket-number-from-rt-email) "2341")))))
 
 (ert-deftest yogurty-test/find-rt-ticket-org-headline-in-buffer-level-1-headline ()
   "Should find already-existing RT ticket in org buffer."
