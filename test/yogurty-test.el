@@ -91,8 +91,94 @@
 ;; - clocking in works
 ;; - *not* clocking in works.
 
-(ert-deftest yogurty-test/insert-rt-ticket-into-org-from-rt-email-already-existing-ticket ()
-  "Make sure ticket ends up in org file."
+(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-check-new-ticket-insert ()
+  "Make sure new ticket gets added."
+  (my-org-file-fixture
+     (lambda ()
+       (yogurty-insert-rt-ticket-into-org-generic "2346" "eBiz it up a notch" 166)
+       (save-buffer)
+       (should (equal (yogurty-find-rt-ticket-in-org-file "2346") 4)))))
+
+(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-already-existing-ticket ()
+  "Should find already-existing RT ticket in org buffer."
+  (my-org-file-fixture
+     (lambda ()
+       (yogurty-insert-rt-ticket-into-org-generic "2348" "Rewrite Emacs in Go" 166)
+       (save-buffer)
+       ;; (should (equal (yogurty-find-rt-ticket-in-org-file "2348") 2)))))
+       ;; Better test: make sure there's only one occurrence of the headline.
+       (goto-char (point-min))
+       (should (equal (count-matches (rx bol "** RT #2348 -- Rewrite Emacs in Go")) 1)))))
+
+(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-correct-subject-line ()
+  "Make sure adding a new ticket gives an Org entry that's correct."
+  (my-org-file-fixture
+     (lambda ()
+       (yogurty-insert-rt-ticket-into-org-generic "2346" "eBiz it up a notch" 1)
+       (save-buffer)
+       (goto-char (point-min))
+       (goto-line (yogurty-find-rt-ticket-org-headline-in-buffer "2346"))
+       (should (equal (looking-at (rx bol "** RT #2346 -- eBiz it up a notch")) t)))))
+
+;; FIXME: This next test was failing when I used ticket number that
+;; *already existed* in the org file fixture; it was clocking in on
+;; the task above it.  yogurty-insert-rt-ticket-into-org-generic
+;; searched for a matching ticket, did not find it (FIXME: I think)
+;; and so clocked in on the first ticket in the file -- not the
+;; correct one.  If that's the case, I need a better test for this, or
+;; to figure out what I've done wrong in that test.
+
+;; As a result, when we in, we're clocking in on the one above it:
+;; 2347, leverage-more-synergy.
+
+;; Thus: we need a new test for that error!
+
+;; (ert-deftest yogurty-test/clocked-into-rt-ticket-number-only ()
+;;   "Should get ticket number that we're clocked into."
+;;   (my-org-file-fixture
+;;    (lambda ()
+;;      (yogurty-insert-rt-ticket-into-org-generic "2348" "Communitize thought leadership" 1)
+;;      (save-buffer)
+;;      (should (equal (yogurty-clocked-into-rt-ticket-number-only) "2348")))))
+
+;; save-buffer here and elsewhere not strictly needed, but a good bit
+;; of housekeeping.
+(ert-deftest yogurty-test/clocked-into-rt-ticket-number-only-new-ticket ()
+  "Should get ticket number that we're clocked into."
+  (my-org-file-fixture
+   (lambda ()
+     (yogurty-insert-rt-ticket-into-org-generic "2350" "Communitize thought leadership")
+     (save-buffer)
+     (should (equal (yogurty-clocked-into-rt-ticket-number-only) "2350")))))
+
+;; FIXME: So this test is for the situation above: inserting a ticket
+;; when there's already one in there with that number.  There are two
+;; things to think about here: first, should we update the org entry
+;; if the subject line is different?  (This could probably be
+;; configurable, or dependable on an argument.)  Second, make sure
+;; that we're clocking into the right damn ticket -- because right
+;; now, we're not.
+(ert-deftest yogurty-test/clocked-into-rt-ticket-number-only-matching-ticket ()
+  "Should get ticket number that we're clocked into."
+  (my-org-file-fixture
+   (lambda ()
+     (yogurty-insert-rt-ticket-into-org-generic "2348" "Communitize thought leadership")
+     (save-buffer)
+     (should (equal (yogurty-clocked-into-rt-ticket-number-only) "2348")))))
+
+(ert-deftest yogurty-test/insert-rt-ticket-commit-comment ()
+  "Test return code."
+  (my-org-file-fixture
+   (lambda ()
+     (yogurty-insert-rt-ticket-into-org-generic "2350" "Communitize thought leadership")
+     (save-buffer)
+     (with-temp-buffer
+       (yogurty-insert-rt-ticket-commit-comment)
+       (beginning-of-line)
+       (should (looking-at "see RT #2350 for details."))))))
+
+(ert-deftest yogurty-test/insert-rt-ticket-into-org-from-rt-email-new-ticket ()
+  "Make sure new ticket ends up in org file."
   (my-org-file-fixture
    (lambda ()
      (my-email-fixture-new-ticket
