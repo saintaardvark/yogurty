@@ -77,7 +77,7 @@ Used in a few different places; time to break it out."
     (goto-char (point-min))
     (if (search-forward "Subject: ")
 	(yogurty-find-rt-ticket-subject-from-string (thing-at-point 'line))
-      (nil))))
+      ())))
 
 ;; Tested.
 (defun yogurty-find-rt-ticket-number-from-rt-email ()
@@ -89,7 +89,7 @@ Used in a few different places; time to break it out."
     (goto-char (point-min))
     (if (search-forward "Subject: ")
 	(yogurty-find-rt-ticket-number-from-string (thing-at-point 'line))
-      (nil))))
+      ())))
 
 ;; Tested
 (defun yogurty-find-rt-ticket-in-org-file (ticket)
@@ -111,7 +111,7 @@ Returns position of headline, or nil if not found."
    (goto-char (point-min))
    (if (re-search-forward (format "^\\*\\** .*RT #%s .*$" ticket) (point-max) t)
        (line-number-at-pos)
-     nil)))
+     ())))
 
 ;; Next test
 ;; FIXME: We're not testing to see if we should clock in.
