@@ -97,8 +97,7 @@ Used in a few different places; time to break it out."
 
 Returns position of headline, or nil if not found."
   (interactive "s")
-  (save-excursion
-   (set-buffer (find-file-noselect yogurty-org-file))
+  (with-current-buffer (find-file-noselect yogurty-org-file)
    (yogurty-find-rt-ticket-org-headline-in-buffer ticket)))
 
 ;; Tested.
