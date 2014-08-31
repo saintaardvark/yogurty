@@ -274,6 +274,7 @@ ticket number that's in yogurty-clocked, which FIXME."
     (search-forward "Subject:")
     (insert-string (format " [rt.chibi.ubc.ca #%d] " ticket))))
 
+;; Tested.
 (defun yogurty-new-rt-email ()
   "A Small but Useful(tm) function to send an email to RT for a new ticket."
   (interactive)
