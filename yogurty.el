@@ -261,6 +261,7 @@ ticket number that's in yogurty-clocked, which FIXME."
       (message "I'm gonna try to close this ticket!")
 	(yogurty-rt-resolve-without-mercy-noninteractive (format "%s" (match-string 1 org-clock-current-task))))))
 
+;; Tested.
 (defun yogurty-email-rt (&optional arg ticket)
   "A Small but Useful(tm) function to email RT about a particular ticket. Universal argument to make it Bcc."
   (interactive "P\nnTicket: ")
