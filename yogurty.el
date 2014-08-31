@@ -69,9 +69,7 @@
 ;; FIXME: These two functions should be one that takes an arg.
 ;; Tested.
 (defun yogurty-find-rt-ticket-subject-from-rt-email ()
-  "Find a ticket subject from rt-email.
-
-Used in a few different places; time to break it out."
+  "Find a ticket subject from rt-email."
   (interactive)
   (save-excursion
     (goto-char (point-min))
@@ -81,9 +79,7 @@ Used in a few different places; time to break it out."
 
 ;; Tested.
 (defun yogurty-find-rt-ticket-number-from-rt-email ()
-  "Find a ticket subject from rt-email.
-
-Used in a few different places; time to break it out."
+  "Find a ticket number from rt-email."
   (interactive)
   (save-excursion
     (goto-char (point-min))
