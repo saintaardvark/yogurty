@@ -84,42 +84,6 @@
 
 ;; Name for tests: yogurty-test/function-name-short-description-if-necessary
 
-;; Wah, there's a lot to test with this one (and doubtless many
-;; others):
-;; - new ticket gets inserted
-;; - already-existing ticket not duplicated
-;; - clocking in works
-;; - *not* clocking in works.
-
-(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-check-new-ticket-insert ()
-  "Make sure new ticket gets added."
-  (my-org-file-fixture
-     (lambda ()
-       (yogurty-insert-rt-ticket-into-org-generic "2346" "eBiz it up a notch" 166)
-       (save-buffer)
-       (should (equal (yogurty-find-rt-ticket-in-org-file "2346") 4)))))
-
-(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-already-existing-ticket ()
-  "Should find already-existing RT ticket in org buffer."
-  (my-org-file-fixture
-     (lambda ()
-       (yogurty-insert-rt-ticket-into-org-generic "2348" "Rewrite Emacs in Go" 166)
-       (save-buffer)
-       ;; (should (equal (yogurty-find-rt-ticket-in-org-file "2348") 2)))))
-       ;; Better test: make sure there's only one occurrence of the headline.
-       (goto-char (point-min))
-       (should (equal (count-matches (rx bol "** RT #2348 -- Rewrite Emacs in Go")) 1)))))
-
-(ert-deftest yogurty-test/insert-rt-ticket-into-org-generic-correct-subject-line ()
-  "Make sure adding a new ticket gives an Org entry that's correct."
-  (my-org-file-fixture
-     (lambda ()
-       (yogurty-insert-rt-ticket-into-org-generic "2346" "eBiz it up a notch" 1)
-       (save-buffer)
-       (goto-char (point-min))
-       (goto-line (yogurty-find-rt-ticket-org-headline-in-buffer "2346"))
-       (should (equal (looking-at (rx bol "** RT #2346 -- eBiz it up a notch")) t)))))
-
 ;; FIXME: This next test was failing when I used ticket number that
 ;; *already existed* in the org file fixture; it was clocking in on
 ;; the task above it.  yogurty-insert-rt-ticket-into-org-generic
