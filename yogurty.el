@@ -108,8 +108,7 @@ Returns position of headline, or nil if not found."
        (line-number-at-pos)
      ())))
 
-;; Next test
-;; FIXME: We're not testing to see if we should clock in.
+;; Tested
 (defun yogurty-insert-rt-ticket-into-org-from-rt-email (&optional arg)
   "Insert an RT ticket into Org and clock in while editing a reply to that email.
 Faster than waiting for rt-browser to update.
@@ -124,6 +123,8 @@ If argument provided, do NOT clock in.
 ;; FIXME: The check for an already-existing ticket is duplicated in a
 ;; number of places; Should be using
 ;; yogurty-find-rt-ticket-org-headline-in-buffer.
+
+;; FIXME: In this function, we're not testing to see if we should clock in.
 
 ;; Tested.
 (defun yogurty-insert-rt-ticket-into-org-generic (id subject &optional arg)
