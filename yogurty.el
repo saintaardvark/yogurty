@@ -1,4 +1,4 @@
-;;; yogurty.el ---
+;;; yogurty.el --- Helpful functions to integrate RT and Orgmode
 ;;
 ;; Filename: yogurty.el
 ;; Description:
