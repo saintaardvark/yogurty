@@ -224,9 +224,10 @@ Can be called from Mutt as well."
   (yogurty-insert-rt-ticket-into-org-from-rt-email)
   (let ((id (yogurty-find-rt-ticket-number-from-rt-email))
 	(subject (yogurty-find-rt-ticket-subject-from-rt-email)))
-	(yogurty-schedule-rt-ticket-for-today-generic id subject arg)))
+	(yogurty-schedule-rt-ticket-for-today-generic id arg)))
 
-(defun yogurty-schedule-rt-ticket-for-today-generic (id subject &optional arg)
+;; FIXME: Need to be more generic about level of indentation.
+(defun yogurty-schedule-rt-ticket-for-today-generic (id &optional arg)
   "Generic way to schedule an RT ticket for today.  Optional arg sets prio to A."
   (interactive "P")
   (save-excursion
