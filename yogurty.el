@@ -229,14 +229,14 @@ Can be called from Mutt as well."
 (defun yogurty-schedule-rt-ticket-for-today-generic (id subject &optional arg)
   "Generic way to schedule an RT ticket for today.  Optional arg sets prio to A."
   (interactive "P")
- (save-excursion
-   (set-buffer (find-file-noselect yogurty-org-file))
-   (goto-char (point-min))
-   (if (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)
-       (progn
-	 (org-schedule 1 ".")))
-   (if arg
-       (org-priority-up))))
+  (save-excursion
+    (set-buffer (find-file-noselect yogurty-org-file))
+    (goto-char (point-min))
+    (if (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)
+	(progn
+	  (org-schedule 1 ".")))
+    (if arg
+	(org-priority-up))))
 
 (defun yogurty-resolve-rt-ticket-after-org-rt-done ()
   "Resolve an RT ticket after the org entry is marked done.
