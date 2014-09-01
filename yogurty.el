@@ -283,6 +283,7 @@ ticket number that's in yogurty-clocked, which FIXME."
     (search-forward "To:")
     (insert-string " help@chibi.ubc.ca")))
 
+;; FIXME: Have sendto customizable.
 (defun yogurty-email-rt-dwim (&optional arg)
   "A Small but Useful(tm) function to email RT about a particular ticket. Universal argument to send to rt instead of rt-comment.
 
