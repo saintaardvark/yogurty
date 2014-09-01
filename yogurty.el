@@ -237,7 +237,7 @@ Can be called from Mutt as well."
     (goto-char (point-min))
     (if (search-forward-regexp  (format "^\\*\\* .*RT #%s.*$" id) (point-max) t)
 	(progn
-	  (org-schedule 1 ".")))
+	  (org-schedule nil ".")))
     (if arg
 	(org-priority-up))))
 
