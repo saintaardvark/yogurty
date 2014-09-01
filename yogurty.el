@@ -216,6 +216,7 @@ Uses the currently-clocked in task as default."
   (interactive)
   (insert-string (format "see %s for details." (yogurty-clocked-into-rt-ticket))))
 
+;; Tested.
 (defun yogurty-schedule-rt-ticket-for-today-from-rt-email (&optional arg)
   "Schedule an RT ticket for today while editing that email.  Optional arg sets prio to A.
 
@@ -226,6 +227,7 @@ Can be called from Mutt as well."
 	(subject (yogurty-find-rt-ticket-subject-from-rt-email)))
 	(yogurty-schedule-rt-ticket-for-today-generic id arg)))
 
+;; Tested.
 ;; FIXME: Need to be more generic about level of indentation.
 (defun yogurty-schedule-rt-ticket-for-today-generic (id &optional arg)
   "Generic way to schedule an RT ticket for today.  Optional arg sets prio to A."
