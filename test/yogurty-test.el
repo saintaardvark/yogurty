@@ -42,6 +42,18 @@
 	  (goto-char (point-min))
 	  (funcall body)))))
 
+;; Set up headers as it would be in Mutt for blank email.
+(defun my-blank-email-fixture (body)
+  (unwind-protect
+      (progn
+	(with-temp-buffer
+	  (insert "From:\n")
+	  (insert "Bcc:\n")
+	  (insert "To:\n")
+	  (insert "Subject:\n")
+	  (goto-char (point-min))
+	  (funcall body)))))
+
 ;; There's a problem here: the kill-buffer is needed to fully reset
 ;; the org file in between invocations -- otherwise, we get multiple
 ;; occurrences of these strings, one set after another.  But when we
