@@ -4,13 +4,16 @@
    (lambda ()
      (my-email-fixture-new-ticket
       (lambda ()
-	(yogurty-insert-rt-ticket-into-org-from-rt-email)
-	(save-excursion
-	  (find-file yogurty-org-file)
-	  (goto-line (yogurty-find-rt-ticket-in-org-file "2355"))
-	  (next-line)
-	  (message (buffer-string))
-	  (should (looking-at "foo bar baz"))))))))
+	(yogurty-schedule-rt-ticket-for-today-from-rt-email)
+	(find-file yogurty-org-file)
+	(save-buffer)
+	(goto-line (yogurty-find-rt-ticket-in-org-file "2355"))
+	(next-line)
+	(forward-word)
+	(backward-word)
+	;; FIXME: Should use Org date string stuff
+	(should (looking-at (format-time-string "SCHEDULED: <%Y-%m-%d %a>"))))))))
+
 
 (ert-deftest yogurty-test/schedule-rt-ticket-for-today-generic-no-previous-schedule ()
   "Make sure RT ticket scheduled for today."
